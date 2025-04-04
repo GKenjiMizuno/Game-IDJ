@@ -1,0 +1,5 @@
+Como compilar: 
+
+make
+
+./bin/game
