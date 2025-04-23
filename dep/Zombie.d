@@ -108,9 +108,8 @@ dep/Zombie.d bin/Zombie.o: src/Zombie.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/13/bits/charconv.h \
  /usr/include/c++/13/bits/functional_hash.h \
  /usr/include/c++/13/bits/hash_bytes.h \
- /usr/include/c++/13/bits/basic_string.tcc include/SpriteRenderer.h \
- include/Sprite.h include/SDL_include.h /usr/include/SDL2/SDL.h \
- /usr/include/SDL2/SDL_main.h /usr/include/SDL2/SDL_stdinc.h \
+ /usr/include/c++/13/bits/basic_string.tcc include/Sound.h \
+ /usr/include/SDL2/SDL_mixer.h /usr/include/SDL2/SDL_stdinc.h \
  /usr/include/SDL2/SDL_config.h \
  /usr/include/x86_64-linux-gnu/SDL2/_real_SDL_config.h \
  /usr/include/SDL2/SDL_platform.h /usr/include/SDL2/begin_code.h \
@@ -130,12 +129,14 @@ dep/Zombie.d bin/Zombie.o: src/Zombie.cpp /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/float.h \
- /usr/include/SDL2/SDL_assert.h /usr/include/SDL2/SDL_atomic.h \
- /usr/include/SDL2/SDL_platform.h /usr/include/SDL2/SDL_audio.h \
- /usr/include/SDL2/SDL_error.h /usr/include/SDL2/SDL_endian.h \
+ /usr/include/SDL2/SDL_rwops.h /usr/include/SDL2/SDL_error.h \
+ /usr/include/SDL2/SDL_audio.h /usr/include/SDL2/SDL_endian.h \
  /usr/include/SDL2/SDL_mutex.h /usr/include/SDL2/SDL_thread.h \
- /usr/include/SDL2/SDL_rwops.h /usr/include/SDL2/SDL_clipboard.h \
- /usr/include/SDL2/SDL_cpuinfo.h \
+ /usr/include/SDL2/SDL_atomic.h /usr/include/SDL2/SDL_platform.h \
+ /usr/include/SDL2/SDL_version.h include/SpriteRenderer.h \
+ include/Sprite.h include/SDL_include.h /usr/include/SDL2/SDL.h \
+ /usr/include/SDL2/SDL_main.h /usr/include/SDL2/SDL_assert.h \
+ /usr/include/SDL2/SDL_clipboard.h /usr/include/SDL2/SDL_cpuinfo.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/immintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/x86gprintrin.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/ia32intrin.h \
@@ -245,9 +246,8 @@ dep/Zombie.d bin/Zombie.o: src/Zombie.cpp /usr/include/stdc-predef.h \
  /usr/include/SDL2/SDL_metal.h /usr/include/SDL2/SDL_power.h \
  /usr/include/SDL2/SDL_render.h /usr/include/SDL2/SDL_shape.h \
  /usr/include/SDL2/SDL_system.h /usr/include/SDL2/SDL_timer.h \
- /usr/include/SDL2/SDL_version.h /usr/include/SDL2/SDL_locale.h \
- /usr/include/SDL2/SDL_misc.h /usr/include/SDL2/SDL_image.h \
- /usr/include/SDL2/SDL.h /usr/include/SDL2/SDL_mixer.h \
+ /usr/include/SDL2/SDL_locale.h /usr/include/SDL2/SDL_misc.h \
+ /usr/include/SDL2/SDL_image.h /usr/include/SDL2/SDL.h \
  /usr/include/SDL2/SDL_ttf.h /usr/include/c++/13/iostream \
  /usr/include/c++/13/ostream /usr/include/c++/13/ios \
  /usr/include/c++/13/exception /usr/include/c++/13/bits/exception_ptr.h \
@@ -309,7 +309,7 @@ dep/Zombie.d bin/Zombie.o: src/Zombie.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/13/bits/hashtable.h \
  /usr/include/c++/13/bits/hashtable_policy.h \
  /usr/include/c++/13/bits/enable_special_members.h \
- /usr/include/c++/13/bits/erase_if.h
+ /usr/include/c++/13/bits/erase_if.h include/Animation.h
 /usr/include/stdc-predef.h:
 include/Zombie.h:
 include/Component.h:
@@ -441,11 +441,8 @@ include/Component.h:
 /usr/include/c++/13/bits/functional_hash.h:
 /usr/include/c++/13/bits/hash_bytes.h:
 /usr/include/c++/13/bits/basic_string.tcc:
-include/SpriteRenderer.h:
-include/Sprite.h:
-include/SDL_include.h:
-/usr/include/SDL2/SDL.h:
-/usr/include/SDL2/SDL_main.h:
+include/Sound.h:
+/usr/include/SDL2/SDL_mixer.h:
 /usr/include/SDL2/SDL_stdinc.h:
 /usr/include/SDL2/SDL_config.h:
 /usr/include/x86_64-linux-gnu/SDL2/_real_SDL_config.h:
@@ -473,15 +470,21 @@ include/SDL_include.h:
 /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
 /usr/include/x86_64-linux-gnu/bits/iscanonical.h:
 /usr/lib/gcc/x86_64-linux-gnu/13/include/float.h:
-/usr/include/SDL2/SDL_assert.h:
-/usr/include/SDL2/SDL_atomic.h:
-/usr/include/SDL2/SDL_platform.h:
-/usr/include/SDL2/SDL_audio.h:
+/usr/include/SDL2/SDL_rwops.h:
 /usr/include/SDL2/SDL_error.h:
+/usr/include/SDL2/SDL_audio.h:
 /usr/include/SDL2/SDL_endian.h:
 /usr/include/SDL2/SDL_mutex.h:
 /usr/include/SDL2/SDL_thread.h:
-/usr/include/SDL2/SDL_rwops.h:
+/usr/include/SDL2/SDL_atomic.h:
+/usr/include/SDL2/SDL_platform.h:
+/usr/include/SDL2/SDL_version.h:
+include/SpriteRenderer.h:
+include/Sprite.h:
+include/SDL_include.h:
+/usr/include/SDL2/SDL.h:
+/usr/include/SDL2/SDL_main.h:
+/usr/include/SDL2/SDL_assert.h:
 /usr/include/SDL2/SDL_clipboard.h:
 /usr/include/SDL2/SDL_cpuinfo.h:
 /usr/lib/gcc/x86_64-linux-gnu/13/include/immintrin.h:
@@ -608,12 +611,10 @@ include/SDL_include.h:
 /usr/include/SDL2/SDL_shape.h:
 /usr/include/SDL2/SDL_system.h:
 /usr/include/SDL2/SDL_timer.h:
-/usr/include/SDL2/SDL_version.h:
 /usr/include/SDL2/SDL_locale.h:
 /usr/include/SDL2/SDL_misc.h:
 /usr/include/SDL2/SDL_image.h:
 /usr/include/SDL2/SDL.h:
-/usr/include/SDL2/SDL_mixer.h:
 /usr/include/SDL2/SDL_ttf.h:
 /usr/include/c++/13/iostream:
 /usr/include/c++/13/ostream:
@@ -695,3 +696,4 @@ include/Vec2.h:
 /usr/include/c++/13/bits/hashtable_policy.h:
 /usr/include/c++/13/bits/enable_special_members.h:
 /usr/include/c++/13/bits/erase_if.h:
+include/Animation.h:

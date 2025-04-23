@@ -5,12 +5,21 @@
 #include "Zombie.h"
 #include "Animator.h"
 #include "Animation.h"
+#include "TileSet.h"
+#include "TileMap.h"
 #include <SDL_include.h>
 #include <algorithm>
 using namespace std;
 
 State::State() : quitRequested(false) {
     LoadAssets();
+
+    GameObject* tilemapGo = new GameObject();
+    TileSet* tileSet = new TileSet(64, 64, "resources/img/Tileset.png");
+    TileMap* tileMap = new TileMap(*tilemapGo, "resources/map/map.txt", tileSet);
+    tilemapGo->AddComponent(tileMap);
+    AddObject(tilemapGo);
+
 
     GameObject* bgGo = new GameObject();
     bgGo->AddComponent(new SpriteRenderer(*bgGo, "resources/img/Background.png"));
