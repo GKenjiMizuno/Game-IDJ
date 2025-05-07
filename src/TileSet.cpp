@@ -14,6 +14,8 @@ TileSet::TileSet(int tileWidth, int tileHeight, const std::string& file)
     tileCount = columns * rows;
 }
 
+
+
 void TileSet::RenderTile(unsigned index, float x, float y) {
     if (index >= (unsigned)tileCount) return;
 
@@ -24,5 +26,8 @@ void TileSet::RenderTile(unsigned index, float x, float y) {
     tileSet.Render(x, y);
 }
 
+bool TileSet::IsOpen(){
+    return tileSet.IsOpen();
+}
 int TileSet::GetTileWidth() const { return tileWidth; }
 int TileSet::GetTileHeight() const { return tileHeight; }

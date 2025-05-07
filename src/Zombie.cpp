@@ -4,19 +4,9 @@
 #include "Animation.h"
 
 Zombie::Zombie(GameObject& associated)
-    : Component(associated), hitpoints(100), deathSound(associated, "Recursos/audio/Dead.wav") {
+    : Component(associated), hitpoints(100), deathSound(associated, "resources/audio/Dead.wav") {
 
-    // SpriteRenderer com 3x2 frames (colunas x linhas)
-    auto sprite = new SpriteRenderer(associated, "resources/img/Enemy.png", 3, 2);
-    sprite->SetFrame(0);
-    associated.AddComponent(sprite);
 
-    // Animator com animações walking e dead
-    auto animator = new Animator(associated);
-    animator->AddAnimation("walking", Animation(0, 3, 10));
-    animator->AddAnimation("dead", Animation(5, 5, 0));
-    animator->SetAnimation("walking");
-    associated.AddComponent(animator);
 }
 
 void Zombie::Damage(int damage) {

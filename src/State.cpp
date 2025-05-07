@@ -9,47 +9,70 @@
 #include "TileMap.h"
 #include <SDL_include.h>
 #include <algorithm>
+#include <iostream> // Para debug
+
 using namespace std;
 
 State::State() : quitRequested(false) {
     LoadAssets();
 
+    // 🖼️ BACKGROUND
+    GameObject* bgGo = new GameObject();
+    SpriteRenderer* bgSprite = new SpriteRenderer(*bgGo, "resources/img/Background.png");
+    if (!bgSprite->IsOpen()) {
+        cerr << "Erro ao carregar Background.png: " << SDL_GetError() << endl;
+    }
+    bgGo->AddComponent(bgSprite);
+    AddObject(bgGo);
+
+    // ⬛ TILEMAP
     GameObject* tilemapGo = new GameObject();
+    tilemapGo->box.x = 0;
+    tilemapGo->box.y = 0;
+    tilemapGo->box.w = 0; // Pode ser ajustado com base no tileset
+    tilemapGo->box.h = 0;
+
     TileSet* tileSet = new TileSet(64, 64, "resources/img/Tileset.png");
+    if (!tileSet->IsOpen()) {
+        cerr << "Erro ao carregar Tileset.png: " << SDL_GetError() << endl;
+    }
+
     TileMap* tileMap = new TileMap(*tilemapGo, "resources/map/map.txt", tileSet);
     tilemapGo->AddComponent(tileMap);
     AddObject(tilemapGo);
 
 
-    GameObject* bgGo = new GameObject();
-    bgGo->AddComponent(new SpriteRenderer(*bgGo, "resources/img/Background.png"));
-    AddObject(bgGo);
-
+    // 🧟 ZOMBIE
     GameObject* zombieGo = new GameObject();
     zombieGo->box.x = 600;
     zombieGo->box.y = 450;
-    
+
     SpriteRenderer* zombieRenderer = new SpriteRenderer(*zombieGo, "resources/img/Enemy.png", 3, 2);
+    if (!zombieRenderer->IsOpen()) {
+        cerr << "Erro ao carregar Enemy.png: " << SDL_GetError() << endl;
+    }
     zombieGo->AddComponent(zombieRenderer);
-    
+
     Animator* zombieAnimator = new Animator(*zombieGo);
     zombieAnimator->AddAnimation("walking", Animation(0, 3, 0.1f));
     zombieAnimator->AddAnimation("dead", Animation(5, 5, 0));
     zombieAnimator->SetAnimation("walking");
     zombieGo->AddComponent(zombieAnimator);
-    
-    zombieGo->AddComponent(new Zombie(*zombieGo));
+
+    Zombie* zombie = new Zombie(*zombieGo);
+    zombieGo->AddComponent(zombie);
+
     AddObject(zombieGo);
-    
 
-
+    // ▶️ Música de fundo
+    music.Play(-1); // Reproduz em loop
 }
 
-
-
 void State::LoadAssets() {
-    //bg.Open("resources/img/Background.png");
     music.Open("resources/audio/BGM.wav");
+    if (!music.IsOpen()) {
+        cerr << "Erro ao carregar BGM.wav: " << SDL_GetError() << endl;
+    }
 }
 
 void State::Update(float dt) {

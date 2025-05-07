@@ -40,6 +40,6 @@ float Vec2::Inclination() const {
 Vec2 Vec2::Rotate(float angle) const {
     return Vec2(
         x * cos(angle) - y * sin(angle),
-        y * cos(angle) + x * sin(angle)
+        x * sin(angle) + y * cos(angle)  
     );
 }

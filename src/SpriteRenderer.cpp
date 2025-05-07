@@ -37,3 +37,7 @@ bool SpriteRenderer::Is(std::string type) {
 void SpriteRenderer::SetFrame(int frame) {
     sprite.SetFrame(frame);
 }
+
+bool SpriteRenderer::IsOpen() {
+    return sprite.IsOpen();
+}

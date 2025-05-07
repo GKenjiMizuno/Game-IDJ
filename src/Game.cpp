@@ -63,12 +63,20 @@ Game& Game::GetInstance() {
 }
 
 void Game::Run() {
-    while (!state->QuitRequested()) {
-        state->Update(0);
-        state->Render();
-        SDL_RenderPresent(renderer);
-        SDL_Delay(33); 
-    }
+    Uint32 frameStart, frameEnd;
+    float dt;
+    
+while (!state->QuitRequested()) {
+    frameStart = SDL_GetTicks();
+
+    state->Update(dt);
+    state->Render();
+    SDL_RenderPresent(renderer);
+
+    frameEnd = SDL_GetTicks();
+    dt = (frameEnd - frameStart) / 1000.0f; // segundos
+    if (dt < 0.033f) SDL_Delay((Uint32)((0.033f - dt) * 1000));
+}
 }
 
 SDL_Renderer* Game::GetRenderer() {

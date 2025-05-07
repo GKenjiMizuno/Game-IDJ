@@ -18,6 +18,7 @@ class SpriteRenderer : public Component {
         void Update(float dt) override;
         void Render() override;
         bool Is(string type) override;
+        bool IsOpen();
 };
 
 #endif

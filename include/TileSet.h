@@ -10,6 +10,8 @@ public:
     void RenderTile(unsigned index, float x, float y);
     int GetTileWidth() const;
     int GetTileHeight() const;
+    bool IsOpen();
+    
 
 private:
     Sprite tileSet;
