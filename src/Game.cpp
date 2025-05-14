@@ -1,6 +1,10 @@
 #include "Game.h"
+#include "InputManager.h"
+#include "Camera.h"
 
 Game* Game::instance = nullptr;
+int frameStart = 0;
+float dt = 0;
 
 Game::Game(string title, int width, int height) {
     if (instance != nullptr) {
@@ -24,10 +28,12 @@ Game::Game(string title, int width, int height) {
         cerr << "Mixer Error: " << Mix_GetError() << endl;
         exit(1);
     }
+
     if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) != 0) {
         cerr << "Audio Error: " << Mix_GetError() << endl;
         exit(1);
     }
+
     Mix_AllocateChannels(32);
 
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
@@ -36,7 +42,7 @@ Game::Game(string title, int width, int height) {
         exit(1);
     }
 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
     if (renderer == nullptr) {
         cerr << "Renderer Error: " << SDL_GetError() << endl;
         exit(1);
@@ -62,21 +68,28 @@ Game& Game::GetInstance() {
     return *instance;
 }
 
+void Game::CalculateDeltaTime() {
+    int time = SDL_GetTicks();
+    dt = (time - frameStart) / 1000.0f;
+    frameStart = time;
+}
+
+float Game::GetDeltaTime() {
+    return dt;
+}
+
 void Game::Run() {
-    Uint32 frameStart, frameEnd;
-    float dt;
-    
-while (!state->QuitRequested()) {
     frameStart = SDL_GetTicks();
 
-    state->Update(dt);
-    state->Render();
-    SDL_RenderPresent(renderer);
-
-    frameEnd = SDL_GetTicks();
-    dt = (frameEnd - frameStart) / 1000.0f; // segundos
-    if (dt < 0.033f) SDL_Delay((Uint32)((0.033f - dt) * 1000));
-}
+    while (!state->QuitRequested()) {
+        CalculateDeltaTime();
+        InputManager::GetInstance().Update();
+        Camera::Update(dt);
+        state->Update(dt);
+        state->Render();
+        SDL_RenderPresent(renderer);
+        SDL_Delay(16); // ~60 FPS
+    }
 }
 
 SDL_Renderer* Game::GetRenderer() {

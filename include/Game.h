@@ -11,14 +11,20 @@ private:
     SDL_Renderer* renderer;
     State* state;
 
-    Game(string title, int width, int height);
-    
+    Game(std::string title, int width, int height);
+
+    int frameStart;
+    float dt;
+
 public:
     ~Game();
     static Game& GetInstance();
     void Run();
     SDL_Renderer* GetRenderer();
     State& GetState();
+
+    void CalculateDeltaTime();
+    float GetDeltaTime();
 };
 
 #endif

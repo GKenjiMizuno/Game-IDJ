@@ -27,11 +27,24 @@ void Zombie::Damage(int damage) {
 }
 
 void Zombie::Update(float dt) {
-    Damage(1); // temporário: perde 1 HP por frame
+    if (hitpoints > 0) {
+        Damage(1);  // dano contínuo só para teste
+    } else {
+        if (!deadPlayed) {
+            auto animator = (Animator*)associated.GetComponent("Animator");
+            if (animator) {
+                animator->SetAnimation("dead");
+            }
+            deathSound.Play();
+            deathTimer.Restart();
+            deadPlayed = true;
+        } else if (deathTimer.Get() > 1.0f) {
+            associated.RequestDelete();
+        }
+    }
 }
 
 void Zombie::Render() {
-    // Nada aqui por enquanto
 }
 
 bool Zombie::Is(std::string type) {

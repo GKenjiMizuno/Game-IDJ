@@ -7,6 +7,8 @@
 #include "Animation.h"
 #include "TileSet.h"
 #include "TileMap.h"
+#include "InputManager.h"
+#include "Camera.h"
 #include <SDL_include.h>
 #include <algorithm>
 #include <iostream> // Para debug
@@ -16,7 +18,7 @@ using namespace std;
 State::State() : quitRequested(false) {
     LoadAssets();
 
-    // 🖼️ BACKGROUND
+    // BACKGROUND
     GameObject* bgGo = new GameObject();
     SpriteRenderer* bgSprite = new SpriteRenderer(*bgGo, "resources/img/Background.png");
     if (!bgSprite->IsOpen()) {
@@ -25,7 +27,7 @@ State::State() : quitRequested(false) {
     bgGo->AddComponent(bgSprite);
     AddObject(bgGo);
 
-    // ⬛ TILEMAP
+    //TILEMAP
     GameObject* tilemapGo = new GameObject();
     tilemapGo->box.x = 0;
     tilemapGo->box.y = 0;
@@ -42,7 +44,7 @@ State::State() : quitRequested(false) {
     AddObject(tilemapGo);
 
 
-    // 🧟 ZOMBIE
+    //ZOMBIE
     GameObject* zombieGo = new GameObject();
     zombieGo->box.x = 600;
     zombieGo->box.y = 450;
@@ -64,8 +66,10 @@ State::State() : quitRequested(false) {
 
     AddObject(zombieGo);
 
-    // ▶️ Música de fundo
+    // Música de fundo
     music.Play(-1); // Reproduz em loop
+    bgSprite->SetCameraFollower(true);
+
 }
 
 void State::LoadAssets() {
@@ -97,6 +101,13 @@ void State::Update(float dt) {
         ),
         objectArray.end()
     );
+    if (InputManager::GetInstance().KeyPress(SDLK_SPACE)) {
+        GameObject* zombieGo = new GameObject();
+        zombieGo->box.x = InputManager::GetInstance().GetMouseX() + Camera::pos.x;
+        zombieGo->box.y = InputManager::GetInstance().GetMouseY() + Camera::pos.y;
+        zombieGo->AddComponent(new Zombie(*zombieGo));
+        AddObject(zombieGo);
+    }
 }
 
 void State::Render() {

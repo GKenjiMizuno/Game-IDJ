@@ -3,6 +3,7 @@
 
 #include "Component.h"
 #include "Sound.h"
+#include "Timer.h"
 
 class Zombie : public Component {
 public:
@@ -13,9 +14,12 @@ public:
     void Render() override;
     bool Is(std::string type) override;
 
+
 private:
     int hitpoints;
     Sound deathSound;
+    Timer deathTimer;
+    bool deadPlayed = false;
 };
 
 #endif
